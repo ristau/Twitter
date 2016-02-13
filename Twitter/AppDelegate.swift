@@ -8,15 +8,33 @@
 
 import UIKit
 
+
 @UIApplicationMain
 class AppDelegate: UIResponder, UIApplicationDelegate {
 
     var window: UIWindow?
+    var storyboard = UIStoryboard(name: "Main", bundle: nil)
 
 
     func application(application: UIApplication, didFinishLaunchingWithOptions launchOptions: [NSObject: AnyObject]?) -> Bool {
         // Override point for customization after application launch.
+        
+        NSNotificationCenter.defaultCenter().addObserver(self, selector: "userDidLogout", name: userDidLogoutNotification, object: nil)
+        
+        if User.currentUser != nil {
+            // Go to the logged in screen
+            print("Current user detected: \(User.currentUser?.name)")
+            let vc = storyboard.instantiateViewControllerWithIdentifier("TweetsViewController") as? UIViewController
+            window?.rootViewController = vc
+    }
+        
         return true
+    }
+    
+    func userDidLogout() {
+        // reset the initial view controller code back to
+        let vc = storyboard.instantiateInitialViewController()! as UIViewController
+        window?.rootViewController = vc
     }
 
     func applicationWillResignActive(application: UIApplication) {
@@ -39,6 +57,15 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
     func applicationWillTerminate(application: UIApplication) {
         // Called when the application is about to terminate. Save data if appropriate. See also applicationDidEnterBackground:.
+    }
+    
+    func application(application: UIApplication, openURL url: NSURL, sourceApplication: String?, annotation: AnyObject) -> Bool {
+       // need to detect that the open URL is related to the Twitter Client
+        // check to see if the path says oAuth and then direct it to the Twitter Client open URL
+        TwitterClient.sharedInstance.openURL(url)
+        
+        
+               return true
     }
 
 
