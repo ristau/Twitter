@@ -14,22 +14,29 @@ class TweetyViewController: UIViewController,UITableViewDataSource, UITableViewD
     @IBOutlet weak var tableView: UITableView!
     
     var tweets: [Tweet]?
+    var refreshControl: UIRefreshControl!
+    var favButton: UIButton!
+    
     
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        tableView.estimatedRowHeight = 120
+        
         tableView.dataSource = self
         tableView.delegate = self
         
+        //implement refresh control
         
-        TwitterClient.sharedInstance.homeTimelineWithParams(nil, completion: { (tweets, error) -> () in
+        
+        TwitterClient.sharedInstance.homeTimelineWithParams(nil) { (tweets, error) -> () in
             
             if (tweets != nil) {
                 self.tweets = tweets
-                // reload tableview here if you have one with self.tableView.reloadData()
+                self.tableView.reloadData()
+                //refresh end
             }
-            
-        })
+        }
 
 
         // Do any additional setup after loading the view.
@@ -52,15 +59,45 @@ class TweetyViewController: UIViewController,UITableViewDataSource, UITableViewD
     
     func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int{
     
-        return 20
-   
+        if tweets != nil {
+            return tweets!.count
+        } else {
+            return 0
+        }
+        
     }
     
-    func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell{
+    func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
         
-        let cell = tableView.dequeueReusableCellWithIdentifier("TweetCell", forIndexPath: indexPath)
-        cell.textLabel!.text = "row \(indexPath.row)"
+        let cell = tableView.dequeueReusableCellWithIdentifier("TweetCell", forIndexPath: indexPath) as! TweetCell
+        
+        cell.tweetTextLabel.text = tweets![indexPath.row].text!
+        cell.userNameLabel.text = tweets![indexPath.row].user?.name!
+        cell.timeCreatedLabel.text = tweets![indexPath.row].createdAtString
+        cell.authorLabel.text = "@" + tweets![indexPath.row].user!.screenname!
+        
+        
+        
+        
+//        cell.tweetContent.text = tweets![indexPath.row].text!
+       // tweetTextLabel.text = tweets![indexPath.row]
+    //    cell.tweet = tweets![indexPath.row]
+        
+//        let title = movie["title"] as! String
+//        let overview = movie["overview"] as! String
+//        
+//        cell.titleLabel.text = title
+        //let tweetContent = tweet.text
+
+        
+//        if (tweets != nil) {
+//            let cell = tweets![indexPath.row]
+//        }
+        
+        
+       // cell.textLabel!.text = "row \(indexPath.row)"
         print ("row \(indexPath.row)")
+
         return cell
     
     }
