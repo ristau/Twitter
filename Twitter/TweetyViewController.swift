@@ -8,12 +8,19 @@
 
 import UIKit
 
-class TweetyViewController: UIViewController {
+class TweetyViewController: UIViewController,UITableViewDataSource, UITableViewDelegate {
 
+    
+    @IBOutlet weak var tableView: UITableView!
+    
     var tweets: [Tweet]?
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        tableView.dataSource = self
+        tableView.delegate = self
+        
         
         TwitterClient.sharedInstance.homeTimelineWithParams(nil, completion: { (tweets, error) -> () in
             
@@ -42,6 +49,24 @@ class TweetyViewController: UIViewController {
         User.currentUser?.logout()
         
     }
+    
+    func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int{
+    
+        return 20
+   
+    }
+    
+    func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell{
+        
+        let cell = tableView.dequeueReusableCellWithIdentifier("TweetCell", forIndexPath: indexPath)
+        cell.textLabel!.text = "row \(indexPath.row)"
+        print ("row \(indexPath.row)")
+        return cell
+    
+    }
+
+
+    
     
 
     /*

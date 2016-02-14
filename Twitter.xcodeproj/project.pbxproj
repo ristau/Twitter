@@ -65,6 +65,13 @@
 			name = Frameworks;
 			sourceTree = "<group>";
 		};
+		E5DDD9021C70095200F96555 /* Views */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			name = Views;
+			sourceTree = "<group>";
+		};
 		E5E782E41C69A4B8000F2A35 = {
 			isa = PBXGroup;
 			children = (
@@ -86,6 +93,7 @@
 		E5E782EF1C69A4B8000F2A35 /* Twitter */ = {
 			isa = PBXGroup;
 			children = (
+				E5DDD9021C70095200F96555 /* Views */,
 				E5E783021C69A5A5000F2A35 /* API */,
 				E5E9F4191C6CEA230070E086 /* Models */,
 				E5E782F01C69A4B8000F2A35 /* AppDelegate.swift */,
