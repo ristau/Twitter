@@ -8,7 +8,7 @@
         <!--View Controller-->
         <scene sceneID="tne-QT-ifu">
             <objects>
-                <viewController storyboardIdentifier="ViewController" id="BYZ-38-t0r" customClass="ViewController" customModule="Twitter" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="ViewController" id="BYZ-38-t0r" customClass="ViewController" customModule="Twitter" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="y3c-jy-aDJ"/>
                         <viewControllerLayoutGuide type="bottom" id="wfy-db-euE"/>
@@ -35,10 +35,10 @@
             </objects>
             <point key="canvasLocation" x="162" y="358"/>
         </scene>
-        <!--Tweets View Controller-->
+        <!--Tweety View Controller-->
         <scene sceneID="l9s-5y-5SB">
             <objects>
-                <viewController storyboardIdentifier="TweetsViewController" id="AT2-Pm-q3v" customClass="TweetsViewController" customModule="Twitter" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="TweetyViewController" id="AT2-Pm-q3v" customClass="TweetyViewController" customModule="Twitter" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="brB-KA-FAx"/>
                         <viewControllerLayoutGuide type="bottom" id="Aa3-Ch-asj"/>
@@ -51,6 +51,7 @@
                                 <rect key="frame" x="144" y="231" width="48" height="30"/>
                                 <state key="normal" title="Logout"/>
                                 <connections>
+                                    <action selector="onLogout:" destination="AT2-Pm-q3v" eventType="touchUpInside" id="q2t-h0-De4"/>
                                     <action selector="onLogout:" destination="CJw-uK-oWD" eventType="touchUpInside" id="wvj-7J-MEo"/>
                                 </connections>
                             </button>

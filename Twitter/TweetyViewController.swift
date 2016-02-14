@@ -1,5 +1,5 @@
 //
-//  TweetsViewController.swift
+//  TweetyViewController.swift
 //  Twitter
 //
 //  Created by Barbara Ristau on 2/13/16.
@@ -8,22 +8,22 @@
 
 import UIKit
 
+class TweetyViewController: UIViewController {
 
-class TweetsViewController: UIViewController {
-    
     var tweets: [Tweet]?
-
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         
         TwitterClient.sharedInstance.homeTimelineWithParams(nil, completion: { (tweets, error) -> () in
-        
+            
             if (tweets != nil) {
                 self.tweets = tweets
                 // reload tableview here if you have one with self.tableView.reloadData()
             }
             
         })
+
 
         // Do any additional setup after loading the view.
     }
@@ -33,16 +33,17 @@ class TweetsViewController: UIViewController {
         // Dispose of any resources that can be recreated.
     }
     
-
     
     @IBAction func onLogout(sender: AnyObject) {
-        // clears the Twitter access token
-        // clears current user from persistence
-        // fires a global notification that the user logged out
+                // clears the Twitter access token
+                // clears current user from persistence
+                // fires a global notification that the user logged out
         
         User.currentUser?.logout()
+        
     }
     
+
     /*
     // MARK: - Navigation
 
