@@ -71,33 +71,14 @@ class TweetyViewController: UIViewController,UITableViewDataSource, UITableViewD
         
         let cell = tableView.dequeueReusableCellWithIdentifier("TweetCell", forIndexPath: indexPath) as! TweetCell
         
+        let imageUrl = tweets![indexPath.row].user?.profileImageUrl!
+        cell.profileImageView.setImageWithURL(NSURL(string: imageUrl!)!)
+        
         cell.tweetTextLabel.text = tweets![indexPath.row].text!
         cell.userNameLabel.text = tweets![indexPath.row].user?.name!
         cell.timeCreatedLabel.text = tweets![indexPath.row].createdAtString
         cell.authorLabel.text = "@" + tweets![indexPath.row].user!.screenname!
         
-        
-        
-        
-//        cell.tweetContent.text = tweets![indexPath.row].text!
-       // tweetTextLabel.text = tweets![indexPath.row]
-    //    cell.tweet = tweets![indexPath.row]
-        
-//        let title = movie["title"] as! String
-//        let overview = movie["overview"] as! String
-//        
-//        cell.titleLabel.text = title
-        //let tweetContent = tweet.text
-
-        
-//        if (tweets != nil) {
-//            let cell = tweets![indexPath.row]
-//        }
-        
-        
-       // cell.textLabel!.text = "row \(indexPath.row)"
-        print ("row \(indexPath.row)")
-
         return cell
     
     }
