@@ -36,6 +36,8 @@ class TweetCell: UITableViewCell {
             retweetCountLabel.text = String(tweet.retweetTotal!)
             favCountLabel.text = String(tweet.favCount!)
             
+            retweetCountLabel.text! == "0" ? (retweetCountLabel.hidden = true) : (retweetCountLabel.hidden = false)
+            favCountLabel.text! == "0" ? (favCountLabel.hidden = true) : (favCountLabel.hidden = false)
         }
         
     }
