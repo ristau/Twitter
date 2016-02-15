@@ -62,7 +62,7 @@ class TweetyViewController: UIViewController,UITableViewDataSource, UITableViewD
         let cell = tableView.dequeueReusableCellWithIdentifier("TweetCell", forIndexPath: indexPath) as! TweetCell
         
         cell.tweet = tweets![indexPath.row]
-        
+    
 //        let imageUrl = tweets![indexPath.row].user?.profileImageUrl!
 //        cell.profileImageView.setImageWithURL(NSURL(string: imageUrl!)!)
 //        
@@ -80,9 +80,26 @@ class TweetyViewController: UIViewController,UITableViewDataSource, UITableViewD
     }
     
     
+    
+//    @IBAction func onFav(sender: AnyObject) {
+//        print("Clicked on Favorite")
+//        
+//        
+////        TwitterClient.sharedInstance.favTweet(["id": tweetID!]) {(tweet, error) -> () in
+////                    if (tweet != nil) {
+////                        print ("Successfully saved as favorite. Increment count")
+////                        self.tweets![indexPath.row] = tweet!
+////                        self.tableView.reloadData()
+////                }
+////            }
+//
+//        
+//        
+//        
+//    }
 
     
-    
+
     @IBAction func onLogout(sender: AnyObject) {
                 // clears the Twitter access token
                 // clears current user from persistence

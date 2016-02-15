@@ -26,8 +26,12 @@ class TweetCell: UITableViewCell {
         
         didSet{
             
-            let imageUrl = tweet.user?.profileImageUrl!
-            profileImageView.setImageWithURL(NSURL(string: imageUrl!)!)
+            if (tweet.user?.profileImageUrl != nil){
+                let imageUrl = tweet.user?.profileImageUrl!
+                profileImageView.setImageWithURL(NSURL(string: imageUrl!)!)
+            } else{
+                print("No profile image found")
+            }
             
             tweetTextLabel.text = tweet.text!
             userNameLabel.text = tweet.user?.name!
@@ -41,7 +45,7 @@ class TweetCell: UITableViewCell {
             retweetCountLabel.text! == "0" ? (retweetCountLabel.hidden = true) : (retweetCountLabel.hidden = false)
             favCountLabel.text! == "0" ? (favCountLabel.hidden = true) : (favCountLabel.hidden = false)
             
-            favButton.setImage(UIImage(named: "like-action-off.png"), forState: UIControlState.Normal)
+        //    favButton.setImage(UIImage(named: "like-action-off.png"), forState: UIControlState.Normal)
             
         }
         
@@ -60,33 +64,29 @@ class TweetCell: UITableViewCell {
     }
 
     
-    @IBAction func onRetweet(sender: AnyObject) {
-        
-//    TwitterClient.sharedInstance.retweet(Int(tweetID), params: nil, completion: {(error) -> () in
-//        self.retweetButton.setImage(UIImage(named: "retweet-action"), forState: UIControlState.Selected)
+ @IBAction func onRetweet(sender: AnyObject) {
 //        
-//        if self.retweetCountLabel.text! > "0" {
-//            self.retweetCountLabel.text = String(self.tweet.retweetTotal! + 1)
-//        }
+////    TwitterClient.sharedInstance.retweet(Int(tweetID), params: nil, completion: {(error) -> () in
+////        self.retweetButton.setImage(UIImage(named: "retweet-action"), forState: UIControlState.Selected)
+////        
+////        if self.retweetCountLabel.text! > "0" {
+////            self.retweetCountLabel.text = String(self.tweet.retweetTotal! + 1)
+////        }
+////        
+////    
+////    
+////    })
+//
 //        
-//    
-//    
-//    })
+////            if (tweets != nil) {
+////                self.tweets = tweets
+////                self.tableView.reloadData()
+////                //refresh end
+////            }
+//      //  }
+//
+//        
+   }
 
-        
-//            if (tweets != nil) {
-//                self.tweets = tweets
-//                self.tableView.reloadData()
-//                //refresh end
-//            }
-      //  }
-
-        
-    }
-    
-    @IBAction func onFav(sender: AnyObject) {
-        
-        
-    }
     
 }
