@@ -38,6 +38,8 @@ init(dictionary: NSDictionary){
     createdAt = formatter.dateFromString(createdAtString!)
     
     
+    id = dictionary["id"] as? Int
+    
     favCount = dictionary["favorite_count"] as? Int
     retweetTotal = dictionary["retweet_count"] as? Int
     
@@ -54,5 +56,14 @@ init(dictionary: NSDictionary){
         return tweets
     }
 
+    //convenience method for converting dictionary to a single tweet
+    class func tweetAsDictionary(dict: NSDictionary) -> Tweet {
+
+        var tweet = Tweet(dictionary: dict)
+        
+        return tweet
+    }
+
+    
 }
 

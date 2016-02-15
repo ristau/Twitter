@@ -97,11 +97,26 @@ class TwitterClient: BDBOAuth1SessionManager {
                 }
             }
     
-    func favTweet(id: Int, params: NSDictionary?, completion: (error: NSError?)-> ()){
+    func favTweet(params: NSDictionary?, completion: (tweet: Tweet?, error: NSError?)-> ()){
         
         POST("1.1/favorites/create.json", parameters: params, success: { (operation: NSURLSessionDataTask!, response: AnyObject?) -> Void in
             
-            print("fav'd tweet with id: \(id)")
+            var tweet = Tweet.tweetAsDictionary(response as! NSDictionary)
+            
+            print("This is the favCount: \(tweet.favCount)")
+            
+            completion(tweet: tweet, error: nil)
+            }, failure: { (operation: NSURLSessionDataTask?, error: NSError) -> Void in
+                print("ERROR: \(error)")
+                completion(tweet: nil, error: error)
+        })
+    }
+    
+    func retweet(id: Int, params: NSDictionary?, completion: (error: NSError?)-> ()){
+        
+        POST("1.1/statuses/retweet/:id.json", parameters: params, success: { (operation: NSURLSessionDataTask!, response: AnyObject?) -> Void in
+            
+            print("retweeted tweet with id: \(id)")
             completion(error: nil)
             }, failure: { (operation: NSURLSessionDataTask?, error: NSError) -> Void in
                 print("error: \(error)")
