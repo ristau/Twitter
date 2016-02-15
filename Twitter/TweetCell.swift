@@ -34,9 +34,9 @@ class TweetCell: UITableViewCell {
             }
             
             tweetTextLabel.text = tweet.text!
-            userNameLabel.text = tweet.user?.name!
-            timeCreatedLabel.text = tweet.createdAtString
-            authorLabel.text = "@" + tweet.user!.screenname!
+            authorLabel.text = tweet.user?.name!
+            timeCreatedLabel.text = tweet.createdAtString!
+            userNameLabel.text = "@" + tweet.user!.screenname!
            
             retweetCountLabel.text = String(tweet.retweetTotal!)
             favCountLabel.text = "\(tweet.favCount as! Int)"
@@ -51,10 +51,13 @@ class TweetCell: UITableViewCell {
         
     }
     
-    
+
     override func awakeFromNib() {
         super.awakeFromNib()
         // Initialization code
+        
+        profileImageView.layer.cornerRadius = 5
+        profileImageView.clipsToBounds = true
     }
 
     override func setSelected(selected: Bool, animated: Bool) {
