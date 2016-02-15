@@ -11,24 +11,35 @@ import UIKit
 class Tweet: NSObject {
     
     var user: User?
+    var author: String?
     var text: String?
     var createdAtString: String?
     var createdAt: NSDate?
+    var id: NSNumber?
+    var favCount: NSNumber?
+    var retweetTotal: NSNumber?
+    
 
  // constructor to accept a dictionary
 
 init(dictionary: NSDictionary){
     
     user = User(dictionary: dictionary["user"] as! NSDictionary)
+    author = dictionary["author"] as? String
+    
     text = dictionary["text"] as? String
     createdAtString = dictionary["created_at"] as? String
     
     // code to parse string related to date format, Greenwich mean time
     // format code from the documentation
     
-    var formatter = NSDateFormatter()
+    let formatter = NSDateFormatter()
     formatter.dateFormat = "EEE MMM d HH:MM:ss Z y"
     createdAt = formatter.dateFromString(createdAtString!)
+    
+    
+    favCount = dictionary["favorite_count"] as? Int
+    retweetTotal = dictionary["retweet_count"] as? Int
     
     }
     

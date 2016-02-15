@@ -47,18 +47,8 @@ class TweetyViewController: UIViewController,UITableViewDataSource, UITableViewD
         // Dispose of any resources that can be recreated.
     }
     
-    
-    @IBAction func onLogout(sender: AnyObject) {
-                // clears the Twitter access token
-                // clears current user from persistence
-                // fires a global notification that the user logged out
-        
-        User.currentUser?.logout()
-        
-    }
-    
     func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int{
-    
+        
         if tweets != nil {
             return tweets!.count
         } else {
@@ -71,19 +61,37 @@ class TweetyViewController: UIViewController,UITableViewDataSource, UITableViewD
         
         let cell = tableView.dequeueReusableCellWithIdentifier("TweetCell", forIndexPath: indexPath) as! TweetCell
         
-        let imageUrl = tweets![indexPath.row].user?.profileImageUrl!
-        cell.profileImageView.setImageWithURL(NSURL(string: imageUrl!)!)
+        cell.tweet = tweets![indexPath.row]
         
-        cell.tweetTextLabel.text = tweets![indexPath.row].text!
-        cell.userNameLabel.text = tweets![indexPath.row].user?.name!
-        cell.timeCreatedLabel.text = tweets![indexPath.row].createdAtString
-        cell.authorLabel.text = "@" + tweets![indexPath.row].user!.screenname!
+//        let imageUrl = tweets![indexPath.row].user?.profileImageUrl!
+//        cell.profileImageView.setImageWithURL(NSURL(string: imageUrl!)!)
+//        
+//        cell.tweetTextLabel.text = tweets![indexPath.row].text!
+//        cell.userNameLabel.text = tweets![indexPath.row].user?.name!
+//        cell.timeCreatedLabel.text = tweets![indexPath.row].createdAtString
+//        cell.authorLabel.text = "@" + tweets![indexPath.row].user!.screenname!
+//        
+//        cell.retweetCountLabel.text = tweets![indexPath.row].retweetTotal!
+        
+        
         
         return cell
-    
+        
     }
+    
+    
 
-
+    
+    
+    @IBAction func onLogout(sender: AnyObject) {
+                // clears the Twitter access token
+                // clears current user from persistence
+                // fires a global notification that the user logged out
+        
+        User.currentUser?.logout()
+        
+    }
+    
     
     
 

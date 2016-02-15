@@ -18,8 +18,30 @@ class TweetCell: UITableViewCell {
     @IBOutlet weak var favButton: UIButton!
     @IBOutlet weak var retweetButton: UIButton!
     
-   // var tweet: Tweet
-    //tweetTextLabel.text = tweet.text
+    @IBOutlet weak var favCountLabel: UILabel!
+    @IBOutlet weak var retweetCountLabel: UILabel!
+    
+    var tweet: Tweet! {
+        
+        didSet{
+            
+            let imageUrl = tweet.user?.profileImageUrl!
+            profileImageView.setImageWithURL(NSURL(string: imageUrl!)!)
+            
+            tweetTextLabel.text = tweet.text!
+            userNameLabel.text = tweet.user?.name!
+            timeCreatedLabel.text = tweet.createdAtString
+            authorLabel.text = "@" + tweet.user!.screenname!
+           
+            retweetCountLabel.text = String(tweet.retweetTotal!)
+            favCountLabel.text = String(tweet.favCount!)
+            
+        }
+        
+    }
+    
+    
+    
     
     override func awakeFromNib() {
         super.awakeFromNib()
