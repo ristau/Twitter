@@ -21,6 +21,7 @@ class TweetCell: UITableViewCell {
     @IBOutlet weak var favCountLabel: UILabel!
     @IBOutlet weak var retweetCountLabel: UILabel!
     
+    var tweetID: String = ""
     
     var tweet: Tweet! {
         
@@ -38,9 +39,10 @@ class TweetCell: UITableViewCell {
             timeCreatedLabel.text = tweet.createdAtString!
             userNameLabel.text = "@" + tweet.user!.screenname!
            
+            tweetID = tweet.id!
             retweetCountLabel.text = String(tweet.retweetTotal!)
-            favCountLabel.text = "\(tweet.favCount as! Int)"
-            print ("Favorite Count: \(tweet.favCount as! Int)")
+            favCountLabel.text = String(tweet.favCount!)
+           
             
             retweetCountLabel.text! == "0" ? (retweetCountLabel.hidden = true) : (retweetCountLabel.hidden = false)
             favCountLabel.text! == "0" ? (favCountLabel.hidden = true) : (favCountLabel.hidden = false)
@@ -68,28 +70,19 @@ class TweetCell: UITableViewCell {
 
     
  @IBAction func onRetweet(sender: AnyObject) {
-//        
-////    TwitterClient.sharedInstance.retweet(Int(tweetID), params: nil, completion: {(error) -> () in
-////        self.retweetButton.setImage(UIImage(named: "retweet-action"), forState: UIControlState.Selected)
-////        
-////        if self.retweetCountLabel.text! > "0" {
-////            self.retweetCountLabel.text = String(self.tweet.retweetTotal! + 1)
-////        }
-////        
-////    
-////    
-////    })
-//
-//        
-////            if (tweets != nil) {
-////                self.tweets = tweets
-////                self.tableView.reloadData()
-////                //refresh end
-////            }
-//      //  }
-//
-//        
-   }
+        
+    TwitterClient.sharedInstance.retweet(Int(tweetID)!, params: nil, completion: {(error) -> () in
+        self.retweetButton.setImage(UIImage(named: "retweet-action-on-green.png"), forState: UIControlState.Selected)
+        
+        if self.retweetCountLabel.text! > "0" {
+            self.retweetCountLabel.text = String(self.tweet!.retweetTotal! + 1)
+        } else {
+            self.retweetCountLabel.hidden = false
+            self.retweetCountLabel.text = String(self.tweet!.retweetTotal! + 1)
+        }
+        
+    })
 
+    }
     
 }

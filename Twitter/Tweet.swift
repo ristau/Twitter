@@ -15,9 +15,9 @@ class Tweet: NSObject {
     var text: String?
     var createdAtString: String?
     var createdAt: NSDate?
-    var id: NSNumber?
-    var favCount: NSNumber?
-    var retweetTotal: NSNumber?
+    var id: String?
+    var favCount: Int?
+    var retweetTotal: Int?
     
 
  // constructor to accept a dictionary
@@ -37,8 +37,8 @@ init(dictionary: NSDictionary){
     formatter.dateFormat = "EEE MMM d HH:MM:ss Z y"
     createdAt = formatter.dateFromString(createdAtString!)
     
+    id = String(dictionary["id"]!)
     
-    id = dictionary["id"] as? Int
     
     favCount = dictionary["favorite_count"] as? Int
     retweetTotal = dictionary["retweet_count"] as? Int
