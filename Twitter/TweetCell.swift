@@ -93,4 +93,28 @@ class TweetCell: UITableViewCell {
 
     }
     
+    @IBAction func onFavorite(sender: AnyObject) {
+        
+        TwitterClient.sharedInstance.favWithCompletion(["id": tweetID!]) { (tweet, error) -> () in
+            
+            if (tweet != nil){
+                self.favButton.setImage(UIImage(named: "like-action-on-red.png"), forState: UIControlState.Normal)
+                
+                if self.favCountLabel.text! > "0" {
+                    self.favCountLabel.text = String(self.tweet!.favCount! + 1)
+                } else {
+                    self.favCountLabel.hidden = false
+                    self.favCountLabel.text = String(self.tweet!.favCount! + 1)
+                }
+            }
+                
+            else {
+                print ("ERROR favorite: \(error)")
+            }
+            
+        }
+        
+    }
+
+    
 }

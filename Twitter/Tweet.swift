@@ -18,8 +18,8 @@ class Tweet: NSObject {
     var id: NSNumber?
     var favCount: Int!
     var retweetTotal: Int!
-    var retweetImage: UIImage?
-    var favImage: UIImage?
+//    var retweetImage: UIImage?
+//    var favImage: UIImage?
 
  // constructor to accept a dictionary
 

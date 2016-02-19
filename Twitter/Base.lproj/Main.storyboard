@@ -102,6 +102,9 @@
                                                     </constraints>
                                                     <state key="normal" image="like-action-off"/>
                                                     <state key="selected" image="like-action-on-pressed-red"/>
+                                                    <connections>
+                                                        <action selector="onFavorite:" destination="0X0-2u-o5c" eventType="touchUpInside" id="zzz-Js-CbK"/>
+                                                    </connections>
                                                 </button>
                                                 <button opaque="NO" contentMode="scaleToFill" ambiguous="YES" misplaced="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="VKQ-kM-km9">
                                                     <rect key="frame" x="86" y="131" width="36" height="33"/>
@@ -154,6 +157,7 @@
                                         </tableViewCellContentView>
                                         <connections>
                                             <outlet property="authorLabel" destination="q1l-mw-opY" id="Bxy-12-dG7"/>
+                                            <outlet property="favButton" destination="3hY-mL-0bU" id="gOr-ek-I6K"/>
                                             <outlet property="favCountLabel" destination="zOX-w1-bj3" id="GCh-kU-pKa"/>
                                             <outlet property="profileImageView" destination="cMd-hh-bzD" id="bbO-NA-qpl"/>
                                             <outlet property="retweetButton" destination="VKQ-kM-km9" id="6EP-c8-fOC"/>
