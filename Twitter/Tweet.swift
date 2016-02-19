@@ -15,10 +15,11 @@ class Tweet: NSObject {
     var text: String?
     var createdAtString: String?
     var createdAt: NSDate?
-    var id: String?
-    var favCount: Int?
-    var retweetTotal: Int?
-    
+    var id: NSNumber?
+    var favCount: Int!
+    var retweetTotal: Int!
+    var retweetImage: UIImage?
+    var favImage: UIImage?
 
  // constructor to accept a dictionary
 
@@ -37,8 +38,9 @@ init(dictionary: NSDictionary){
     formatter.dateFormat = "EEE MMM d HH:MM:ss Z y"
     createdAt = formatter.dateFromString(createdAtString!)
     
-    id = String(dictionary["id"]!)
     
+    // code for retweeting and favorites
+    id = dictionary["id"] as? Int
     
     favCount = dictionary["favorite_count"] as? Int
     retweetTotal = dictionary["retweet_count"] as? Int

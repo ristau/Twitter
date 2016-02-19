@@ -21,7 +21,7 @@ class TweetCell: UITableViewCell {
     @IBOutlet weak var favCountLabel: UILabel!
     @IBOutlet weak var retweetCountLabel: UILabel!
     
-    var tweetID: String = ""
+    var tweetID: NSNumber?
     
     var tweet: Tweet! {
         
@@ -47,6 +47,7 @@ class TweetCell: UITableViewCell {
             retweetCountLabel.text! == "0" ? (retweetCountLabel.hidden = true) : (retweetCountLabel.hidden = false)
             favCountLabel.text! == "0" ? (favCountLabel.hidden = true) : (favCountLabel.hidden = false)
             
+            tweetID = tweet.id
         //    favButton.setImage(UIImage(named: "like-action-off.png"), forState: UIControlState.Normal)
             
         }
@@ -71,17 +72,24 @@ class TweetCell: UITableViewCell {
     
  @IBAction func onRetweet(sender: AnyObject) {
         
-    TwitterClient.sharedInstance.retweet(Int(tweetID)!, params: nil, completion: {(error) -> () in
-        self.retweetButton.setImage(UIImage(named: "retweet-action-on-green.png"), forState: UIControlState.Selected)
+    TwitterClient.sharedInstance.retweetWithCompletion(["id": tweetID!]) { (tweet, error) -> () in
         
-        if self.retweetCountLabel.text! > "0" {
-            self.retweetCountLabel.text = String(self.tweet!.retweetTotal! + 1)
-        } else {
-            self.retweetCountLabel.hidden = false
-            self.retweetCountLabel.text = String(self.tweet!.retweetTotal! + 1)
+        if (tweet != nil){
+            self.retweetButton.setImage(UIImage(named: "retweet-action-on-green.png"), forState: UIControlState.Normal)
+            
+            if self.retweetCountLabel.text! > "0" {
+                self.retweetCountLabel.text = String(self.tweet!.retweetTotal! + 1)
+            } else {
+                self.retweetCountLabel.hidden = false
+                self.retweetCountLabel.text = String(self.tweet!.retweetTotal! + 1)
+            }
         }
         
-    })
+        else {
+            print ("ERROR rewtweeting: \(error)")
+        }
+    
+    }
 
     }
     

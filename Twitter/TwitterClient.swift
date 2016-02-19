@@ -97,32 +97,54 @@ class TwitterClient: BDBOAuth1SessionManager {
                 }
             }
     
-    func favTweet(params: NSDictionary?, completion: (tweet: Tweet?, error: NSError?)-> ()){
+//    func favTweet(params: NSDictionary?, completion: (tweet: Tweet?, error: NSError?)-> ()){
+//        
+//        POST("1.1/favorites/create.json", parameters: params, success: { (operation: NSURLSessionDataTask!, response: AnyObject?) -> Void in
+//            
+//            var tweet = Tweet.tweetAsDictionary(response as! NSDictionary)
+//            
+//            print("This is the favCount: \(tweet.favCount)")
+//            
+//            completion(tweet: tweet, error: nil)
+//            }, failure: { (operation: NSURLSessionDataTask?, error: NSError) -> Void in
+//                print("ERROR: \(error)")
+//                completion(tweet: nil, error: error)
+//        })
+//    }
+    
+    func retweetWithCompletion(params: NSDictionary?, completion: (tweet: Tweet?, error: NSError?)-> ()){
         
-        POST("1.1/favorites/create.json", parameters: params, success: { (operation: NSURLSessionDataTask!, response: AnyObject?) -> Void in
+        POST("1.1/statuses/retweet/\(params!["id"] as! Int).json", parameters: params, success: { (operation: NSURLSessionDataTask!, response: AnyObject?) -> Void in
             
             var tweet = Tweet.tweetAsDictionary(response as! NSDictionary)
             
-            print("This is the favCount: \(tweet.favCount)")
+            print("retweeted count: \(tweet.retweetTotal)")
             
             completion(tweet: tweet, error: nil)
-            }, failure: { (operation: NSURLSessionDataTask?, error: NSError) -> Void in
-                print("ERROR: \(error)")
-                completion(tweet: nil, error: error)
-        })
-    }
-    
-    func retweet(id: Int, params: NSDictionary?, completion: (error: NSError?)-> ()){
-        
-        POST("1.1/statuses/retweet/:id.json", parameters: params, success: { (operation: NSURLSessionDataTask!, response: AnyObject?) -> Void in
             
-            print("retweeted tweet with id: \(id)")
-            completion(error: nil)
-            }, failure: { (operation: NSURLSessionDataTask?, error: NSError) -> Void in
+            }) { (operation: NSURLSessionDataTask?, error: NSError) -> Void in
                 print("error: \(error)")
-                completion(error: error)
-        })
+                completion(tweet: nil, error: error)
+        }
     }
 
+    func favWithCompletion(params: NSDictionary?, completion: (tweet: Tweet?, error: NSError?)-> ()){
+        
+        POST("1.1/favorites/\(params!["id"] as! Int).json", parameters: params, success: { (operation: NSURLSessionDataTask!, response: AnyObject?) -> Void in
+            
+            var tweet = Tweet.tweetAsDictionary(response as! NSDictionary)
+            
+            print("favorite count: \(tweet.favCount)")
+            
+            completion(tweet: tweet, error: nil)
+            
+            }) { (operation: NSURLSessionDataTask?, error: NSError) -> Void in
+                print("error: \(error)")
+                completion(tweet: nil, error: error)
+        }
+    }
+    
+    
+    
     
 }
