@@ -8,14 +8,14 @@
 
 import UIKit
 
-class TweetyViewController: UIViewController,UITableViewDataSource, UITableViewDelegate {
-
+class TweetyViewController: UIViewController,UITableViewDataSource, UITableViewDelegate, UIScrollViewDelegate {
     
     @IBOutlet weak var tableView: UITableView!
     
     var tweets: [Tweet]?
     var refreshControl: UIRefreshControl!
     var favButton: UIButton!
+    var isMoreDataLoading = false
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -57,10 +57,24 @@ class TweetyViewController: UIViewController,UITableViewDataSource, UITableViewD
         refreshControl.endRefreshing()
     }
     
-//    func scrollViewDidScroll(scrollView: UIScrollView) {
-//         handle scroll behavior here
-//        <#code#>
-//    }
+    func scrollViewDidScroll(scrollView: UIScrollView) {
+     //  handle scroll behavior here
+        if (!isMoreDataLoading) {
+            // Calculate the position of one screen length before the bottom of the results
+            let scrollViewContentHeight = tableView.contentSize.height
+            let scrollOffsetThreshold = scrollViewContentHeight - tableView.bounds.size.height
+
+            // When the user has scrolled past the threshold, start requesting
+            if(scrollView.contentOffset.y > scrollOffsetThreshold && tableView.dragging) {
+                isMoreDataLoading = true
+                
+                // ... Code to load more results ...
+                
+            }
+            
+            
+        }
+    }
     
     
     func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int{
