@@ -17,7 +17,6 @@ class TweetyViewController: UIViewController,UITableViewDataSource, UITableViewD
     var refreshControl: UIRefreshControl!
     var favButton: UIButton!
     
-    
     override func viewDidLoad() {
         super.viewDidLoad()
         
@@ -27,14 +26,19 @@ class TweetyViewController: UIViewController,UITableViewDataSource, UITableViewD
         tableView.estimatedRowHeight = 120
         
         //implement refresh control
+        refreshControl = UIRefreshControl()
+        tableView.addSubview(refreshControl)
         
+        refreshControl.addTarget(self, action:
+            "onRefresh", forControlEvents: UIControlEvents.ValueChanged)
+            
         
         TwitterClient.sharedInstance.homeTimelineWithParams(nil) { (tweets, error) -> () in
             
             if (tweets != nil) {
                 self.tweets = tweets
                 self.tableView.reloadData()
-                //refresh end
+                self.refreshControl.endRefreshing()
             }
         }
 
@@ -46,6 +50,18 @@ class TweetyViewController: UIViewController,UITableViewDataSource, UITableViewD
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
     }
+    
+    func refreshControlAction(refreshControl: UIRefreshControl) {
+        
+        self.tableView.reloadData()
+        refreshControl.endRefreshing()
+    }
+    
+//    func scrollViewDidScroll(scrollView: UIScrollView) {
+//         handle scroll behavior here
+//        <#code#>
+//    }
+    
     
     func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int{
         
