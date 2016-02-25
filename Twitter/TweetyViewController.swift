@@ -69,6 +69,7 @@ class TweetyViewController: UIViewController,UITableViewDataSource, UITableViewD
                 isMoreDataLoading = true
                 
                 // ... Code to load more results ...
+                //loadmoreData function
                 
             }
             
@@ -76,6 +77,10 @@ class TweetyViewController: UIViewController,UITableViewDataSource, UITableViewD
         }
     }
     
+//    func loadMoreData(){
+    
+        // }
+
     
     func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int{
         
