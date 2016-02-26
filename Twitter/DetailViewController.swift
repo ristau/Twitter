@@ -10,6 +10,18 @@ import UIKit
 
 class DetailViewController: UIViewController {
 
+    
+    @IBOutlet weak var userNameLabel: UILabel!
+    @IBOutlet weak var authorLabel: UILabel!
+    @IBOutlet weak var profileImageView: UIImageView!
+    @IBOutlet weak var tweetTextLabel: UILabel!
+    @IBOutlet weak var timeCreatedLabel: UILabel!
+    
+    
+    @IBOutlet weak var FavButton: UIButton!
+    @IBOutlet weak var retweetButton: UIButton!
+    @IBOutlet weak var replyButton: UIButton!
+
     override func viewDidLoad() {
         super.viewDidLoad()
 
