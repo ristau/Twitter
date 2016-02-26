@@ -219,7 +219,7 @@
                                         <nil key="highlightedColor"/>
                                     </label>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Author" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="2Nb-Q9-fUH">
-                                        <rect key="frame" x="100" y="31" width="38" height="18"/>
+                                        <rect key="frame" x="100" y="0.0" width="38" height="18"/>
                                         <fontDescription key="fontDescription" type="system" pointSize="12"/>
                                         <color key="textColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
                                         <nil key="highlightedColor"/>
@@ -245,8 +245,20 @@
                                         <rect key="frame" x="181" y="220" width="30" height="30"/>
                                         <state key="normal" title="Fav"/>
                                     </button>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Fav#" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Od0-Dh-CSW">
+                                        <rect key="frame" x="214" y="224" width="37" height="21"/>
+                                        <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                        <color key="textColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="calibratedRGB"/>
+                                        <nil key="highlightedColor"/>
+                                    </label>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="RT#" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="QB5-2X-R3u">
+                                        <rect key="frame" x="147" y="224" width="32" height="21"/>
+                                        <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                        <color key="textColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="calibratedRGB"/>
+                                        <nil key="highlightedColor"/>
+                                    </label>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="User Name" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="6TH-KI-V67">
-                                        <rect key="frame" x="100" y="8" width="63" height="15"/>
+                                        <rect key="frame" x="100" y="16" width="63" height="15"/>
                                         <fontDescription key="fontDescription" type="system" pointSize="12"/>
                                         <color key="textColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
                                         <nil key="highlightedColor"/>
@@ -261,9 +273,11 @@
                     <connections>
                         <outlet property="FavButton" destination="gP2-NO-SZJ" id="jRx-KQ-3lU"/>
                         <outlet property="authorLabel" destination="2Nb-Q9-fUH" id="7AO-MM-kjp"/>
+                        <outlet property="favCountLabel" destination="Od0-Dh-CSW" id="RWo-eU-Rey"/>
                         <outlet property="profileImageView" destination="6nq-tK-MSr" id="X6R-Cb-Go8"/>
                         <outlet property="replyButton" destination="TY9-J2-AH3" id="tcO-Xz-Er5"/>
                         <outlet property="retweetButton" destination="Wt1-TT-6xN" id="c2z-M2-8Q6"/>
+                        <outlet property="retweetCountLabel" destination="QB5-2X-R3u" id="ep0-vr-aLK"/>
                         <outlet property="timeCreatedLabel" destination="dA3-Wx-gXl" id="Irl-Zi-wYe"/>
                         <outlet property="tweetTextLabel" destination="OnH-cW-Vew" id="ggq-ZT-pQB"/>
                         <outlet property="userNameLabel" destination="6TH-KI-V67" id="y85-Vi-YJf"/>

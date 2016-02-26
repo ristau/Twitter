@@ -153,6 +153,12 @@ class TweetyViewController: UIViewController,UITableViewDataSource, UITableViewD
     // In a storyboard-based application, you will often want to do a little preparation before navigation
     override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
     
+        let cell = sender as! UITableViewCell
+        let indexPath = tableView.indexPathForCell(cell)
+        let tweet = tweets![indexPath!.row]
+        let detailViewController = segue.destinationViewController as! DetailViewController
+        detailViewController.tweet = tweet
+        
         print("prepare for segue")
         
         // Get the new view controller using segue.destinationViewController.
