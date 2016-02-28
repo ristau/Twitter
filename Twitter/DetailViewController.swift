@@ -20,7 +20,7 @@ class DetailViewController: UIViewController {
     @IBOutlet weak var favCountLabel: UILabel!
     @IBOutlet weak var retweetCountLabel: UILabel!
     
-    @IBOutlet weak var FavButton: UIButton!
+    @IBOutlet weak var favButton: UIButton!
     @IBOutlet weak var retweetButton: UIButton!
     @IBOutlet weak var replyButton: UIButton!
     
@@ -54,8 +54,6 @@ class DetailViewController: UIViewController {
         favCountLabel.text! == "0" ? (favCountLabel.hidden = true) : (favCountLabel.hidden = false)
         
         tweetID = tweet.id
-
-        
         
         // Do any additional setup after loading the view.
     }
@@ -63,6 +61,51 @@ class DetailViewController: UIViewController {
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
+    }
+    
+    @IBAction func onRetweet(sender: AnyObject) {
+        TwitterClient.sharedInstance.retweetWithCompletion(["id": tweetID!]) { (tweet, error) -> () in
+            
+            if (tweet != nil){
+                self.retweetButton.setImage(UIImage(named: "retweet-action-on-green.png"), forState: UIControlState.Normal)
+                
+                if self.retweetCountLabel.text! > "0" {
+                    self.retweetCountLabel.text = String(self.tweet!.retweetTotal! + 1)
+                } else {
+                    self.retweetCountLabel.hidden = false
+                    self.retweetCountLabel.text = String(self.tweet!.retweetTotal! + 1)
+                }
+            }
+                
+            else {
+                print ("ERROR rewtweeting: \(error)")
+            }
+        }
+    }
+    
+
+    @IBAction func onLike(sender: AnyObject) {
+        
+        TwitterClient.sharedInstance.favWithCompletion(["id": tweetID!]) { (tweet, error) -> () in
+            
+            if (tweet != nil){
+                self.favButton.setImage(UIImage(named: "like-action-on-red.png"), forState: UIControlState.Normal)
+                
+                if self.favCountLabel.text! > "0" {
+                    self.favCountLabel.text = String(self.tweet!.favCount! + 1)
+                } else {
+                    self.favCountLabel.hidden = false
+                    self.favCountLabel.text = String(self.tweet!.favCount! + 1)
+                }
+            }
+                
+            else {
+                print ("ERROR favorite: \(error)")
+            }
+            
+        }
+        
+        
     }
     
 
@@ -75,5 +118,4 @@ class DetailViewController: UIViewController {
         // Pass the selected object to the new view controller.
     }
     */
-
 }

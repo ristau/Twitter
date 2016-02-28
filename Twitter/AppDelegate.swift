@@ -18,13 +18,16 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
     func application(application: UIApplication, didFinishLaunchingWithOptions launchOptions: [NSObject: AnyObject]?) -> Bool {
         // Override point for customization after application launch.
-        
+                
         NSNotificationCenter.defaultCenter().addObserver(self, selector: "userDidLogout", name: userDidLogoutNotification, object: nil)
         
         if (User.currentUser != nil) {
             // Go to the logged in screen
             print("Current user detected: \(User.currentUser?.name)")
-            //let vc = storyboard.instantiateViewControllerWithIdentifier("TweetsViewController") as? UIViewController
+//            let vc = storyboard.instantiateViewControllerWithIdentifier("TweetsNavigationController") as! UINavigationController
+//            window?.rootViewController = vc
+            
+      //  let vc = storyboard.instantiateViewControllerWithIdentifier("TweetsViewController") as? UIViewController
             
             
         } else {
@@ -68,11 +71,8 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
        // need to detect that the open URL is related to the Twitter Client
         // check to see if the path says oAuth and then direct it to the Twitter Client open URL
         TwitterClient.sharedInstance.openURL(url)
-        
-        
                return true
     }
-
 
 }
 
