@@ -43,9 +43,15 @@ class ProfileViewController: UIViewController {
   
         bannerImageView.setImageWithURL((user?.bannerImageUrl!)!)
         
+        authorLabel.text = user?.name!
+        userNameLabel.text = "@" + user!.screenname!
         
-        //let userID = user?.userID
-     //   let banner = TwitterClient.sharedInstance.getUserBanner(userID!, params: nil) -> () in
+        tweetsCount.text = String(user!.tweetCount)
+        
+        followersCount.text = String(user!.followersTotal)
+        followingCount.text = String(user!.followingTotal)
+
+        
     }
 
     

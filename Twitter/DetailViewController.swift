@@ -115,6 +115,22 @@ class DetailViewController: UIViewController {
     // In a storyboard-based application, you will often want to do little preparation before navigation
     override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
         
+        
+        if segue.identifier == "Profile"{
+            let user = tweet.user
+            let profileViewController = segue.destinationViewController as! ProfileViewController
+            profileViewController.user = user
+            print("prepare for profile segue")
+            }
+            
+        else if segue.identifier == "Reply" {
+            
+            let composeViewController = segue.destinationViewController as! ComposeViewController
+            print("prepare for reply segue")
+            
+        }
+
+        
 //        let button = sender as! UIButton
 //        let view = button.superview!
 //        let cell = view.superview as! TweetCell
@@ -122,9 +138,7 @@ class DetailViewController: UIViewController {
 //        let indexPath = tableView.indexPath(cell)
 //        let tweet = tweets![indexPath!.row]
         
-        let user = tweet.user
-        let profileViewController = segue.destinationViewController as! ProfileViewController
-        profileViewController.user = user
+       
         
 //        let cell = sender as! UITableViewCell
 //        let indexPath = tableView.indexPathForCell(cell)
@@ -133,7 +147,7 @@ class DetailViewController: UIViewController {
 //        detailViewController.tweet = tweet
         
         
-        print("prepare for segue")
+       
         // Get the new view controller using segue.destinationViewController.
         // Pass the selected object to the new view controller.
     }
