@@ -7,15 +7,50 @@
 //
 
 import UIKit
+import AFNetworking
+
 
 class ProfileViewController: UIViewController {
-
+    
+    
+    @IBOutlet weak var bannerImageView: UIImageView!
+    @IBOutlet weak var profileImageView: UIImageView!
+    
+    @IBOutlet weak var userNameLabel: UILabel!
+    @IBOutlet weak var authorLabel: UILabel!
+    
+    @IBOutlet weak var tweetsTotalLabel: UILabel!
+    @IBOutlet weak var tweetsCount: UILabel!
+    
+    @IBOutlet weak var followingTotalLabel: UILabel!
+    @IBOutlet weak var followingCount: UILabel!
+    
+    @IBOutlet weak var followersTotalLabel: UILabel!
+    @IBOutlet weak var followersCount: UILabel!
+    
+    
+    var user: User? 
+    
     override func viewDidLoad() {
         super.viewDidLoad()
-
-        // Do any additional setup after loading the view.
+        
+        if (user?.profileImageUrl != nil){
+            let imageUrl = user?.profileImageUrl!
+            profileImageView.setImageWithURL(NSURL(string: imageUrl!)!)
+        } else{
+            print("No profile image found")
+        }
+  
+        bannerImageView.setImageWithURL((user?.bannerImageUrl!)!)
+        
+        
+        //let userID = user?.userID
+     //   let banner = TwitterClient.sharedInstance.getUserBanner(userID!, params: nil) -> () in
     }
 
+    
+        // Do any additional setup after loading the view.
+        
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.

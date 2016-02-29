@@ -9,6 +9,7 @@
 import UIKit
 
 var _currentUser: User?
+
 let currentUserKey = "kCurrentUserKey"
 let userDidLoginNotification = "userDidLoginNotification"
 let userDidLogoutNotification = "userDidLogoutNotification"
@@ -18,8 +19,13 @@ class User: NSObject {
     var name: String?
     var screenname: String?
     var profileImageUrl: String?
+    var bannerImageUrl: NSURL?
     var tagline: String?
     var dictionary: NSDictionary
+    var tweetCount: Int
+    var followingTotal: Int
+    var followersTotal: Int
+    var userID: Int
     
     // constructor to accept a dictionary
     
@@ -30,6 +36,17 @@ class User: NSObject {
         screenname = dictionary["screen_name"] as? String
         profileImageUrl = dictionary["profile_image_url"] as? String
         tagline = dictionary["description"] as? String
+        
+        userID = dictionary["id"] as! Int
+        followersTotal = dictionary["followers_count"] as! Int
+        followingTotal = dictionary["friends_count"] as! Int
+        tweetCount = dictionary["statuses_count"] as! Int
+        
+        let banner = dictionary["profile_background_image_url_https"] as? String
+        if banner != nil{
+            bannerImageUrl = NSURL(string: banner!)
+        }
+        
     
     }
     

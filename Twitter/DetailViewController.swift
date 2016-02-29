@@ -84,7 +84,7 @@ class DetailViewController: UIViewController {
     }
     
 
-    @IBAction func onLike(sender: AnyObject) {
+    @IBAction func onFavorite(sender: AnyObject) {
         
         TwitterClient.sharedInstance.favWithCompletion(["id": tweetID!]) { (tweet, error) -> () in
             
@@ -109,13 +109,33 @@ class DetailViewController: UIViewController {
     }
     
 
-    /*
+
     // MARK: - Navigation
 
-    // In a storyboard-based application, you will often want to do a little preparation before navigation
+    // In a storyboard-based application, you will often want to do little preparation before navigation
     override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
+        
+//        let button = sender as! UIButton
+//        let view = button.superview!
+//        let cell = view.superview as! TweetCell
+        
+//        let indexPath = tableView.indexPath(cell)
+//        let tweet = tweets![indexPath!.row]
+        
+        let user = tweet.user
+        let profileViewController = segue.destinationViewController as! ProfileViewController
+        profileViewController.user = user
+        
+//        let cell = sender as! UITableViewCell
+//        let indexPath = tableView.indexPathForCell(cell)
+//        let tweet = tweets![indexPath!.row]
+//        let detailViewController = segue.destinationViewController as! DetailViewController
+//        detailViewController.tweet = tweet
+        
+        
+        print("prepare for segue")
         // Get the new view controller using segue.destinationViewController.
         // Pass the selected object to the new view controller.
     }
-    */
+
 }

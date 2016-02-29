@@ -97,20 +97,6 @@ class TwitterClient: BDBOAuth1SessionManager {
                 }
             }
     
-//    func favTweet(params: NSDictionary?, completion: (tweet: Tweet?, error: NSError?)-> ()){
-//        
-//        POST("1.1/favorites/create.json", parameters: params, success: { (operation: NSURLSessionDataTask!, response: AnyObject?) -> Void in
-//            
-//            var tweet = Tweet.tweetAsDictionary(response as! NSDictionary)
-//            
-//            print("This is the favCount: \(tweet.favCount)")
-//            
-//            completion(tweet: tweet, error: nil)
-//            }, failure: { (operation: NSURLSessionDataTask?, error: NSError) -> Void in
-//                print("ERROR: \(error)")
-//                completion(tweet: nil, error: error)
-//        })
-//    }
     
     func retweetWithCompletion(params: NSDictionary?, completion: (tweet: Tweet?, error: NSError?)-> ()){
         
@@ -142,6 +128,16 @@ class TwitterClient: BDBOAuth1SessionManager {
                 print("error: \(error)")
                 completion(tweet: nil, error: error)
         }
+    }
+    
+    func getUserBanner(id: Int, params: NSDictionary?, completion: (error: NSError?) -> () ){
+    GET("1.1/users/profile_banner.json", parameters: params, success: { (operation: NSURLSessionDataTask!, response: AnyObject?) -> Void in
+        print("got user banner")
+        completion( error: nil)
+        }, failure: { (operation: NSURLSessionDataTask?, error: NSError!) -> Void in
+            print("did not get user banner")
+            completion(error: error)
+        })
     }
     
     
