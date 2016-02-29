@@ -167,7 +167,7 @@ class TweetyViewController: UIViewController,UITableViewDataSource, UITableViewD
         
         else if segue.identifier == "Compose" {
           
-            let composeViewController = segue.destinationViewController as! ComposeViewController
+           // let composeViewController = segue.destinationViewController as! ComposeViewController
             print("prepare for compose segue")
             
         }

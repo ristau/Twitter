@@ -35,6 +35,8 @@ class DetailViewController: UIViewController {
         if (tweet.user?.profileImageUrl != nil){
             let imageUrl = tweet.user?.profileImageUrl!
             profileImageView.setImageWithURL(NSURL(string: imageUrl!)!)
+            profileImageView.layer.cornerRadius = 5
+            profileImageView.clipsToBounds = true
         } else{
             print("No profile image found")
         }
@@ -108,6 +110,8 @@ class DetailViewController: UIViewController {
         
     }
     
+    
+    
 
 
     // MARK: - Navigation
@@ -125,7 +129,7 @@ class DetailViewController: UIViewController {
             
         else if segue.identifier == "Reply" {
             
-            let composeViewController = segue.destinationViewController as! ComposeViewController
+            let replyViewController = segue.destinationViewController as! ComposeViewController
             print("prepare for reply segue")
             
         }

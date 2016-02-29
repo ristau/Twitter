@@ -37,6 +37,8 @@ class ProfileViewController: UIViewController {
         if (user?.profileImageUrl != nil){
             let imageUrl = user?.profileImageUrl!
             profileImageView.setImageWithURL(NSURL(string: imageUrl!)!)
+            profileImageView.layer.cornerRadius = 5
+            profileImageView.clipsToBounds = true
         } else{
             print("No profile image found")
         }

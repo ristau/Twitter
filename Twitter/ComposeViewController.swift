@@ -17,7 +17,7 @@ class ComposeViewController: UIViewController, UITextViewDelegate {
     var isReply: Bool?
     
     
-    @IBOutlet weak var composeButton: UINavigationItem!
+     @IBOutlet weak var composeButton: UINavigationItem!
     
     @IBOutlet weak var profileImageView: UIImageView!
     @IBOutlet weak var userNameLabel: UILabel!
@@ -37,6 +37,8 @@ class ComposeViewController: UIViewController, UITextViewDelegate {
         if (user?.profileImageUrl != nil){
             let imageUrl = user?.profileImageUrl!
             profileImageView.setImageWithURL(NSURL(string: imageUrl!)!)
+            profileImageView.layer.cornerRadius = 5
+            profileImageView.clipsToBounds = true
         } else{
             print("No profile image found")
         }
@@ -56,6 +58,7 @@ class ComposeViewController: UIViewController, UITextViewDelegate {
             }
             else {
                 createTweet.enabled = false
+                charLimitLabel.text = "\(140 - composeNewTweet.text!.characters.count)"
             }
             isReply = false
           
