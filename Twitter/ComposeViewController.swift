@@ -36,7 +36,7 @@ class ComposeViewController: UIViewController, UITextViewDelegate {
         
         if (user?.profileImageUrl != nil){
             let imageUrl = user?.profileImageUrl!
-            profileImageView.setImageWithURL(NSURL(string: imageUrl!)!)
+            profileImageView.setImageWith(URL(string: imageUrl!)!)
             profileImageView.layer.cornerRadius = 5
             profileImageView.clipsToBounds = true
         } else{
@@ -46,18 +46,18 @@ class ComposeViewController: UIViewController, UITextViewDelegate {
         placeHolderLabel.text = ""
         
         composeNewTweet.addSubview(placeHolderLabel)
-        placeHolderLabel.hidden = !composeNewTweet.text.isEmpty
+        placeHolderLabel.isHidden = !composeNewTweet.text.isEmpty
         
         composeNewTweet.becomeFirstResponder()
         
         if (isReply) == true {
             composeNewTweet.text = "@\((tweet?.user?.screenname)!)"
             if 0 < (141 - composeNewTweet.text!.characters.count){
-                createTweet.enabled = true
+                createTweet.isEnabled = true
                 charLimitLabel.text = "\(140-composeNewTweet.text!.characters.count)"
             }
             else {
-                createTweet.enabled = false
+                createTweet.isEnabled = false
                 charLimitLabel.text = "\(140 - composeNewTweet.text!.characters.count)"
             }
             isReply = false
@@ -73,38 +73,38 @@ class ComposeViewController: UIViewController, UITextViewDelegate {
         // Dispose of any resources that can be recreated.
     }
     
-    @IBAction func onCreateNewTweet(sender: AnyObject) {
+    @IBAction func onCreateNewTweet(_ sender: AnyObject) {
         
         tweetContent = composeNewTweet.text
         
-        let escapedTweetMessage = tweetContent.stringByAddingPercentEncodingWithAllowedCharacters(NSCharacterSet.URLQueryAllowedCharacterSet())
+        let escapedTweetMessage = tweetContent.addingPercentEncoding(withAllowedCharacters: CharacterSet.urlQueryAllowed)
         
         if isReply == true {
-            placeHolderLabel.hidden = !composeNewTweet.text.isEmpty
+            placeHolderLabel.isHidden = !composeNewTweet.text.isEmpty
             TwitterClient.sharedInstance.reply(escapedTweetMessage!, statusID: Int(tweet!.id!), params: nil, completion: {
                     (error) -> () in
                     print("replying")
             })
             isReply = false
-            navigationController?.popViewControllerAnimated(true)
+            navigationController?.popViewController(animated: true)
         } else {
             TwitterClient.sharedInstance.compose(escapedTweetMessage!, params: nil, completion: { (error) -> () in
                 print("composing tweet")
             })
-            navigationController?.popViewControllerAnimated(true)
+            navigationController?.popViewController(animated: true)
         }
             
         }
     
-    func textViewDidChange(textView: UITextView) {
-        placeHolderLabel.hidden = !composeNewTweet.text.isEmpty
+    func textViewDidChange(_ textView: UITextView) {
+        placeHolderLabel.isHidden = !composeNewTweet.text.isEmpty
         if 0 < (141 - composeNewTweet.text!.characters.count) {
-            createTweet.enabled = true
+            createTweet.isEnabled = true
             charLimitLabel.text = "\(140 - composeNewTweet.text!.characters.count)"
         }
         
         else {
-            createTweet.enabled = false
+            createTweet.isEnabled = false
             charLimitLabel.text = "\(140 - composeNewTweet.text!.characters.count)"
         }
     }

@@ -36,14 +36,20 @@ class ProfileViewController: UIViewController {
         
         if (user?.profileImageUrl != nil){
             let imageUrl = user?.profileImageUrl!
-            profileImageView.setImageWithURL(NSURL(string: imageUrl!)!)
+            profileImageView.setImageWith(URL(string: imageUrl!)!)
             profileImageView.layer.cornerRadius = 5
             profileImageView.clipsToBounds = true
         } else{
             print("No profile image found")
         }
   
-        bannerImageView.setImageWithURL((user?.bannerImageUrl!)!)
+        if (user?.bannerImageUrl != nil){
+            let bannerImageUrl = user?.bannerImageUrl!
+            bannerImageView.setImageWith((user?.bannerImageUrl!)! as URL)
+        } else{
+            print("No banner image found")
+        }
+
         
         authorLabel.text = user?.name!
         userNameLabel.text = "@" + user!.screenname!

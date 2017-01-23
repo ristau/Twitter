@@ -19,7 +19,7 @@ class User: NSObject {
     var name: String?
     var screenname: String?
     var profileImageUrl: String?
-    var bannerImageUrl: NSURL?
+    var bannerImageUrl: URL?
     var tagline: String?
     var dictionary: NSDictionary
     var tweetCount: Int
@@ -44,7 +44,7 @@ class User: NSObject {
         
         let banner = dictionary["profile_background_image_url_https"] as? String
         if banner != nil{
-            bannerImageUrl = NSURL(string: banner!)
+            bannerImageUrl = URL(string: banner!)
         }
         
     
@@ -56,7 +56,7 @@ class User: NSObject {
         // clear the access token
         TwitterClient.sharedInstance.requestSerializer.removeAccessToken()
         // send broadcast that the user logged out 
-        NSNotificationCenter.defaultCenter().postNotificationName(userDidLogoutNotification, object: nil)
+        NotificationCenter.default.post(name: Notification.Name(rawValue: userDidLogoutNotification), object: nil)
     }
     
         // methods to store and restore current user
@@ -66,10 +66,10 @@ class User: NSObject {
         
         get {
             if _currentUser == nil {
-            let data = NSUserDefaults.standardUserDefaults().objectForKey(currentUserKey) as? NSData
+            let data = UserDefaults.standard.object(forKey: currentUserKey) as? Data
                 if data != nil {
                     do {
-                        let dictionary = try NSJSONSerialization.JSONObjectWithData(data!, options: NSJSONReadingOptions.AllowFragments)
+                        let dictionary = try JSONSerialization.jsonObject(with: data!, options: JSONSerialization.ReadingOptions.allowFragments)
                         _currentUser = User(dictionary: dictionary as! NSDictionary)
                     } catch (let error) {
                         print(error)
@@ -85,16 +85,16 @@ class User: NSObject {
                 if (_currentUser != nil) {
                     do {
                         // if current user is not nil, change it to the JSON serialized string
-                        let data = try NSJSONSerialization.dataWithJSONObject(user!.dictionary, options: NSJSONWritingOptions.PrettyPrinted)
+                        let data = try JSONSerialization.data(withJSONObject: user!.dictionary, options: JSONSerialization.WritingOptions.prettyPrinted)
                         // store it in the key
-                        NSUserDefaults.standardUserDefaults().setObject(data, forKey: currentUserKey)
+                        UserDefaults.standard.set(data, forKey: currentUserKey)
                        //  save (write or flush) it to disk
-                        NSUserDefaults.standardUserDefaults().synchronize()
+                        UserDefaults.standard.synchronize()
                     } catch (let error) {
                         print(error)
                         // even if it's nil you still want to clear it
-                        NSUserDefaults.standardUserDefaults().setObject(nil, forKey: currentUserKey)
-                        NSUserDefaults.standardUserDefaults().synchronize()
+                        UserDefaults.standard.set(nil, forKey: currentUserKey)
+                        UserDefaults.standard.synchronize()
                     }
                 }
             }

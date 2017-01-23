@@ -133,6 +133,12 @@
                                                     <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
+                                                <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="0NA-Lc-G6d">
+                                                    <rect key="frame" x="26" y="30" width="30" height="30"/>
+                                                    <connections>
+                                                        <segue destination="lLc-Vg-7sR" kind="push" identifier="Profile" id="Qtw-rc-Hnx"/>
+                                                    </connections>
+                                                </button>
                                             </subviews>
                                             <constraints>
                                                 <constraint firstItem="Pu5-Er-VMd" firstAttribute="leading" secondItem="cMd-hh-bzD" secondAttribute="trailing" constant="8" id="0Xc-af-Vwp"/>
@@ -279,7 +285,7 @@
                                         <color key="textColor" white="0.33333333333333331" alpha="1" colorSpace="calibratedWhite"/>
                                         <nil key="highlightedColor"/>
                                     </label>
-                                    <button opaque="NO" contentMode="scaleToFill" ambiguous="YES" misplaced="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="lGq-5s-HeK">
+                                    <button opaque="NO" contentMode="scaleToFill" ambiguous="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="lGq-5s-HeK">
                                         <rect key="frame" x="8" y="8" width="90" height="90"/>
                                         <constraints>
                                             <constraint firstAttribute="height" constant="90" id="RAQ-UO-U4G"/>
@@ -300,7 +306,7 @@
                                         <state key="normal" title="Reply" image="reply-action_0"/>
                                         <state key="selected" image="reply-action-pressed_0"/>
                                         <connections>
-                                            <action selector="onReply:" destination="NYg-lb-kBj" eventType="touchUpInside" id="6To-HO-tqm"/>
+                                            <segue destination="Knr-wS-DPK" kind="push" id="lc3-Sh-rMs"/>
                                         </connections>
                                     </button>
                                 </subviews>
@@ -559,4 +565,8 @@
         <image name="retweet-action-inactive" width="75" height="72"/>
         <image name="retweet-action-on-pressed_green" width="75" height="72"/>
     </resources>
+    <inferredMetricsTieBreakers>
+        <segue reference="Qtw-rc-Hnx"/>
+        <segue reference="vbo-yE-mO6"/>
+    </inferredMetricsTieBreakers>
 </document>

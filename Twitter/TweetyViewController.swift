@@ -13,6 +13,7 @@ class TweetyViewController: UIViewController,UITableViewDataSource, UITableViewD
     @IBOutlet weak var tableView: UITableView!
     
     var tweets: [Tweet]?
+    var tweet: Tweet!
     var refreshControl: UIRefreshControl!
     var favButton: UIButton!
     var isMoreDataLoading = false
@@ -30,7 +31,7 @@ class TweetyViewController: UIViewController,UITableViewDataSource, UITableViewD
         tableView.addSubview(refreshControl)
         
         refreshControl.addTarget(self, action:
-            "onRefresh", forControlEvents: UIControlEvents.ValueChanged)
+            "onRefresh", for: UIControlEvents.valueChanged)
             
         
         TwitterClient.sharedInstance.homeTimelineWithParams(nil) { (tweets, error) -> () in
@@ -51,13 +52,13 @@ class TweetyViewController: UIViewController,UITableViewDataSource, UITableViewD
         // Dispose of any resources that can be recreated.
     }
     
-    func refreshControlAction(refreshControl: UIRefreshControl) {
+    func refreshControlAction(_ refreshControl: UIRefreshControl) {
         
         self.tableView.reloadData()
         refreshControl.endRefreshing()
     }
     
-    func scrollViewDidScroll(scrollView: UIScrollView) {
+    func scrollViewDidScroll(_ scrollView: UIScrollView) {
      //  handle scroll behavior here
         if (!isMoreDataLoading) {
             // Calculate the position of one screen length before the bottom of the results
@@ -65,7 +66,7 @@ class TweetyViewController: UIViewController,UITableViewDataSource, UITableViewD
             let scrollOffsetThreshold = scrollViewContentHeight - tableView.bounds.size.height
 
             // When the user has scrolled past the threshold, start requesting
-            if(scrollView.contentOffset.y > scrollOffsetThreshold && tableView.dragging) {
+            if(scrollView.contentOffset.y > scrollOffsetThreshold && tableView.isDragging) {
                 isMoreDataLoading = true
                 
                 // ... Code to load more results ...
@@ -82,7 +83,7 @@ class TweetyViewController: UIViewController,UITableViewDataSource, UITableViewD
         // }
 
     
-    func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int{
+    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int{
         
         if tweets != nil {
             return tweets!.count
@@ -92,9 +93,9 @@ class TweetyViewController: UIViewController,UITableViewDataSource, UITableViewD
         
     }
     
-    func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
+    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         
-        let cell = tableView.dequeueReusableCellWithIdentifier("TweetCell", forIndexPath: indexPath) as! TweetCell
+        let cell = tableView.dequeueReusableCell(withIdentifier: "TweetCell", for: indexPath) as! TweetCell
         
         cell.tweet = tweets![indexPath.row]
     
@@ -135,7 +136,7 @@ class TweetyViewController: UIViewController,UITableViewDataSource, UITableViewD
 
     
 
-    @IBAction func onLogout(sender: AnyObject) {
+    @IBAction func onLogout(_ sender: AnyObject) {
                 // clears the Twitter access token
                 // clears current user from persistence
                 // fires a global notification that the user logged out
@@ -151,19 +152,31 @@ class TweetyViewController: UIViewController,UITableViewDataSource, UITableViewD
     // MARK: - Navigation
 
     // In a storyboard-based application, you will often want to do a little preparation before navigation
-    override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         
         if segue.identifier == "Detail"{
         
         let cell = sender as! UITableViewCell
-        let indexPath = tableView.indexPathForCell(cell)
+        let indexPath = tableView.indexPath(for: cell)
         let tweet = tweets![indexPath!.row]
-        let detailViewController = segue.destinationViewController as! DetailViewController
+        let detailViewController = segue.destination as! DetailViewController
         detailViewController.tweet = tweet
         
         print("prepare for detail segue")
             
         }
+        
+        else if segue.identifier == "Profile"{
+            
+             //let cell = sender as! UIButton
+             let indexPath = tableView.indexPathForSelectedRow
+             let tweet = tweets![indexPath!.row]
+             let user = tweet.user
+             let profileViewController = segue.destination as! ProfileViewController
+             profileViewController.user = user
+             print("prepare for profile segue")
+            }
+            
         
         else if segue.identifier == "Compose" {
           

@@ -14,7 +14,7 @@ class Tweet: NSObject {
     var author: String?
     var text: String?
     var createdAtString: String?
-    var createdAt: NSDate?
+    var createdAt: Date?
     var id: NSNumber?
     var favCount: Int!
     var retweetTotal: Int!
@@ -34,13 +34,13 @@ init(dictionary: NSDictionary){
     // code to parse string related to date format, Greenwich mean time
     // format code from the documentation
     
-    let formatter = NSDateFormatter()
+    let formatter = DateFormatter()
     formatter.dateFormat = "EEE MMM d HH:MM:ss Z y"
-    createdAt = formatter.dateFromString(createdAtString!)
+    createdAt = formatter.date(from: createdAtString!)
     
     
     // code for retweeting and favorites
-    id = dictionary["id"] as? Int
+    id = dictionary["id"] as? Int as NSNumber?
     
     favCount = dictionary["favorite_count"] as? Int
     retweetTotal = dictionary["retweet_count"] as? Int
@@ -48,7 +48,7 @@ init(dictionary: NSDictionary){
     }
     
     //convenience method to give us an array of tweets 
-    class func tweetsWithArray(array: [NSDictionary]) -> [Tweet] {
+    class func tweetsWithArray(_ array: [NSDictionary]) -> [Tweet] {
         var tweets = [Tweet]()
         
         for dictionary in array {
@@ -59,9 +59,9 @@ init(dictionary: NSDictionary){
     }
 
     //convenience method for converting dictionary to a single tweet
-    class func tweetAsDictionary(dict: NSDictionary) -> Tweet {
+    class func tweetAsDictionary(_ dict: NSDictionary) -> Tweet {
 
-        var tweet = Tweet(dictionary: dict)
+        let tweet = Tweet(dictionary: dict)
         
         return tweet
     }

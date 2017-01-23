@@ -34,7 +34,7 @@ class DetailViewController: UIViewController {
         
         if (tweet.user?.profileImageUrl != nil){
             let imageUrl = tweet.user?.profileImageUrl!
-            profileImageView.setImageWithURL(NSURL(string: imageUrl!)!)
+            profileImageView.setImageWith(URL(string: imageUrl!)!)
             profileImageView.layer.cornerRadius = 5
             profileImageView.clipsToBounds = true
         } else{
@@ -52,8 +52,8 @@ class DetailViewController: UIViewController {
         favCountLabel.text = String(tweet.favCount!)
         
         
-        retweetCountLabel.text! == "0" ? (retweetCountLabel.hidden = true) : (retweetCountLabel.hidden = false)
-        favCountLabel.text! == "0" ? (favCountLabel.hidden = true) : (favCountLabel.hidden = false)
+        retweetCountLabel.text! == "0" ? (retweetCountLabel.isHidden = true) : (retweetCountLabel.isHidden = false)
+        favCountLabel.text! == "0" ? (favCountLabel.isHidden = true) : (favCountLabel.isHidden = false)
         
         tweetID = tweet.id
         
@@ -65,16 +65,16 @@ class DetailViewController: UIViewController {
         // Dispose of any resources that can be recreated.
     }
     
-    @IBAction func onRetweet(sender: AnyObject) {
+    @IBAction func onRetweet(_ sender: AnyObject) {
         TwitterClient.sharedInstance.retweetWithCompletion(["id": tweetID!]) { (tweet, error) -> () in
             
             if (tweet != nil){
-                self.retweetButton.setImage(UIImage(named: "retweet-action-on-green.png"), forState: UIControlState.Normal)
+                self.retweetButton.setImage(UIImage(named: "retweet-action-on-green.png"), for: UIControlState())
                 
                 if self.retweetCountLabel.text! > "0" {
                     self.retweetCountLabel.text = String(self.tweet!.retweetTotal! + 1)
                 } else {
-                    self.retweetCountLabel.hidden = false
+                    self.retweetCountLabel.isHidden = false
                     self.retweetCountLabel.text = String(self.tweet!.retweetTotal! + 1)
                 }
             }
@@ -86,17 +86,17 @@ class DetailViewController: UIViewController {
     }
     
 
-    @IBAction func onFavorite(sender: AnyObject) {
+    @IBAction func onFavorite(_ sender: AnyObject) {
         
         TwitterClient.sharedInstance.favWithCompletion(["id": tweetID!]) { (tweet, error) -> () in
             
             if (tweet != nil){
-                self.favButton.setImage(UIImage(named: "like-action-on-red.png"), forState: UIControlState.Normal)
+                self.favButton.setImage(UIImage(named: "like-action-on-red.png"), for: UIControlState())
                 
                 if self.favCountLabel.text! > "0" {
                     self.favCountLabel.text = String(self.tweet!.favCount! + 1)
                 } else {
-                    self.favCountLabel.hidden = false
+                    self.favCountLabel.isHidden = false
                     self.favCountLabel.text = String(self.tweet!.favCount! + 1)
                 }
             }
@@ -117,19 +117,19 @@ class DetailViewController: UIViewController {
     // MARK: - Navigation
 
     // In a storyboard-based application, you will often want to do little preparation before navigation
-    override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
-        
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        print("PREPARING FOR SEGUE")
         
         if segue.identifier == "Profile"{
             let user = tweet.user
-            let profileViewController = segue.destinationViewController as! ProfileViewController
+            let profileViewController = segue.destination as! ProfileViewController
             profileViewController.user = user
             print("prepare for profile segue")
             }
             
         else if segue.identifier == "Reply" {
             
-            let replyViewController = segue.destinationViewController as! ComposeViewController
+            let replyViewController = segue.destination as! ComposeViewController
             print("prepare for reply segue")
             
         }

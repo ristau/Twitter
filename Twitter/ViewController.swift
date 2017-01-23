@@ -27,7 +27,7 @@ class ViewController: UIViewController {
         // Dispose of any resources that can be recreated.
     }
 
-    @IBAction func onLogin(sender: AnyObject) {
+    @IBAction func onLogin(_ sender: AnyObject) {
         // you could also consider to put this codeblock in your User Class
         // you would do this if you want to fully hide the API client from the View Controller level 
         // for example, change method to user.loginWithCompletion, which calls method below
@@ -37,7 +37,7 @@ class ViewController: UIViewController {
             if user != nil{
                 
                 //perform segue
-                self.performSegueWithIdentifier("loginSegue", sender: self)
+                self.performSegue(withIdentifier: "loginSegue", sender: self)
             } else{
                 //handle login error
             }

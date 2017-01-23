@@ -29,7 +29,7 @@ class TweetCell: UITableViewCell {
             
             if (tweet.user?.profileImageUrl != nil){
                 let imageUrl = tweet.user?.profileImageUrl!
-                profileImageView.setImageWithURL(NSURL(string: imageUrl!)!)
+                profileImageView.setImageWith(URL(string: imageUrl!)!)
             } else{
                 print("No profile image found")
             }
@@ -44,8 +44,8 @@ class TweetCell: UITableViewCell {
             favCountLabel.text = String(tweet.favCount!)
            
             
-            retweetCountLabel.text! == "0" ? (retweetCountLabel.hidden = true) : (retweetCountLabel.hidden = false)
-            favCountLabel.text! == "0" ? (favCountLabel.hidden = true) : (favCountLabel.hidden = false)
+            retweetCountLabel.text! == "0" ? (retweetCountLabel.isHidden = true) : (retweetCountLabel.isHidden = false)
+            favCountLabel.text! == "0" ? (favCountLabel.isHidden = true) : (favCountLabel.isHidden = false)
             
             tweetID = tweet.id
         //    favButton.setImage(UIImage(named: "like-action-off.png"), forState: UIControlState.Normal)
@@ -63,24 +63,24 @@ class TweetCell: UITableViewCell {
         profileImageView.clipsToBounds = true
     }
 
-    override func setSelected(selected: Bool, animated: Bool) {
+    override func setSelected(_ selected: Bool, animated: Bool) {
         super.setSelected(selected, animated: animated)
 
         // Configure the view for the selected state
     }
 
     
- @IBAction func onRetweet(sender: AnyObject) {
+ @IBAction func onRetweet(_ sender: AnyObject) {
         
     TwitterClient.sharedInstance.retweetWithCompletion(["id": tweetID!]) { (tweet, error) -> () in
         
         if (tweet != nil){
-            self.retweetButton.setImage(UIImage(named: "retweet-action-on-green.png"), forState: UIControlState.Normal)
+            self.retweetButton.setImage(UIImage(named: "retweet-action-on-green.png"), for: UIControlState())
             
             if self.retweetCountLabel.text! > "0" {
                 self.retweetCountLabel.text = String(self.tweet!.retweetTotal! + 1)
             } else {
-                self.retweetCountLabel.hidden = false
+                self.retweetCountLabel.isHidden = false
                 self.retweetCountLabel.text = String(self.tweet!.retweetTotal! + 1)
             }
         }
@@ -93,17 +93,17 @@ class TweetCell: UITableViewCell {
 
     }
     
-    @IBAction func onFavorite(sender: AnyObject) {
+    @IBAction func onFavorite(_ sender: AnyObject) {
         
         TwitterClient.sharedInstance.favWithCompletion(["id": tweetID!]) { (tweet, error) -> () in
             
             if (tweet != nil){
-                self.favButton.setImage(UIImage(named: "like-action-on-red.png"), forState: UIControlState.Normal)
+                self.favButton.setImage(UIImage(named: "like-action-on-red.png"), for: UIControlState())
                 
                 if self.favCountLabel.text! > "0" {
                     self.favCountLabel.text = String(self.tweet!.favCount! + 1)
                 } else {
-                    self.favCountLabel.hidden = false
+                    self.favCountLabel.isHidden = false
                     self.favCountLabel.text = String(self.tweet!.favCount! + 1)
                 }
             }
